@@ -1,41 +1,60 @@
-//qeury for data
 
-//of those 25 object push the first 10 objects to a new array
 
-//array of 25 objects from api
+// Create a container to append all cards
+const container = document.getElementById("data-cards"); // Make sure you have a container in your HTML
 
-const newArray = [];
+function getMealData() {
+  fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=")
+    .then((Response) => {
+      return Response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      const apiData = data.meals;
+      console.log(apiData);
 
-//push the first 10 object
+      
+      for (let i = 0; i < apiData.length; i++) {
+        // Create the card structure
+        const divColEl = document.createElement("div");
+        divColEl.setAttribute("class", "col");
+        console.log(divColEl);
+        const divCardEl = document.createElement("div");
+        divCardEl.setAttribute("class", "card shadow-sm");
 
-//create a new array
+        const imgEl = document.createElement("img");
+        imgEl.setAttribute("class", "bd-placeholder-img card-img-top");
+        imgEl.setAttribute("alt", "Card image");
+        imgEl.setAttribute("src", apiData[i].strMealThumb);
 
-//push first 10 to the new array
+        const divCardBody = document.createElement("div");
+        divCardBody.setAttribute("class", "card-body");
 
-//for loop to iterate of 10 objects
+        const cardTitle = document.createElement("h5");
+        cardTitle.setAttribute("class", "card-title");
+        cardTitle.textContent = apiData[i].strMeal; // Set the title to the current item in newArray
 
-//dyanmically create the bootstrap cards for 10 objects
+        const cardP = document.createElement("p");
+        cardP.setAttribute("class", "card-text");
+        cardP.textContent = apiData[i].strInstructions;
 
-for (let i = 0; i < newArray.length; i++) {
-  const divColEl = document.createElement("div");
-  divColEl.setAttribute("class", "col");
+        const cardBtn = document.createElement("a");
+        cardBtn.setAttribute("class", "btn btn-primary");
+        cardBtn.setAttribute("href", "#");
+        cardBtn.textContent = "Add to Favorites";
 
-  const divCardEl = document.createElement("div");
-  divCardEl.setAttribute("class", "card shadow-sm");
+        // Assemble the card
+        divCardBody.appendChild(cardTitle);
+        divCardBody.appendChild(cardP);
+        divCardBody.appendChild(cardBtn);
+        divCardEl.appendChild(imgEl);
+        divCardEl.appendChild(divCardBody);
+        divColEl.appendChild(divCardEl);
 
-  const imgEl = document.createElement("img");
-  imgEl.setAttribute("class", "bd-placeholder-img card-img-top");
-
-  const divCardBody = document.createElement("div");
-  divCardBody.setAttribute("class", "card-body");
-
-  //append to DOM
+        // Append the card column to the container
+        container.appendChild(divColEl);
+      }
+    });
 }
 
-//event listener for view favorites button
-
-//in the callback function
-
-// window.location.href = './favorites.html'
-
-// window.location.replace("")
+getMealData();
