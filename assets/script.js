@@ -58,6 +58,18 @@ function getMealData() {
 
 getMealData();
 
+const favoritesBtn = document.querySelector("#favPage");
+
+favoritesBtn.addEventListener("click", function () {
+  window.location.href = "favorites.html";
+});
+
+const homeBtn = document.querySelector("#homePage");
+
+homeBtn.addEventListener("click", function () {
+  window.location.href = "index.html";
+});
+
 favoritesBtn.addEventListener("click", function () {
   const mealFavorites = getMealData.value;
   console.log();
