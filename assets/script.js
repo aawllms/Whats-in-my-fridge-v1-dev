@@ -1,7 +1,7 @@
 // Create a container to append all cards
-const container = document.getElementById("data-cards");
+const container = document.getElementById("data-cards"); // Make sure you have a container in your HTML
 
-const favoritesBtn = document.querySelector("#Favorite-button");
+let mealData = [];
 
 function getMealData() {
   fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=")
@@ -12,6 +12,8 @@ function getMealData() {
       console.log(data);
       const apiData = data.meals;
       console.log(apiData);
+
+      mealData.push(apiData);
 
       for (let i = 0; i < apiData.length; i++) {
         // Create the card structure
@@ -37,8 +39,10 @@ function getMealData() {
         cardP.setAttribute("class", "card-text");
         cardP.textContent = apiData[i].strInstructions;
 
-        const cardBtn = document.createElement("a");
+        const cardBtn = document.createElement("button");
         cardBtn.setAttribute("class", "btn btn-primary");
+        cardBtn.setAttribute("id", "favorite-button");
+        cardBtn.setAttribute("data-index", apiData[i].idMeal);
         cardBtn.setAttribute("href", "#");
         cardBtn.textContent = "Add to Favorites";
 
@@ -71,7 +75,29 @@ homePageBtn.addEventListener("click", function () {
   window.location.href = "index.html";
 });
 
-favoritesBtn.addEventListener("click", function () {
-  const mealFavorites = getMealData.value;
-  console.log();
+container.addEventListener("click", function (event) {
+  const element = event.target;
+  // console.log(element);
+  const id = element.getAttribute("data-index");
+  //console.log(id);
+
+  //console.log(mealData);
+
+  const apiData = mealData[0];
+  //console.log(apiData);
+
+  const favObj = apiData.find((meal) => meal.idMeal === id);
+  // console.log(favObj);
+
+  const favArr = [];
+  favArr.push(favObj);
+
+  localStorage.setItem(`favorites`, JSON.stringify(favArr));
+  //console.log();
+  //Create a variable = empty array
+  //Push object into array
+  //Push array into local storage
+  //json.stringify array
+
+  // windows.localstorage.setItem(Json.stringify)
 });
