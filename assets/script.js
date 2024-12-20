@@ -1,5 +1,3 @@
-
-
 // Create a container to append all cards
 const container = document.getElementById("data-cards"); // Make sure you have a container in your HTML
 
@@ -13,7 +11,6 @@ function getMealData() {
       const apiData = data.meals;
       console.log(apiData);
 
-      
       for (let i = 0; i < apiData.length; i++) {
         // Create the card structure
         const divColEl = document.createElement("div");
@@ -58,3 +55,15 @@ function getMealData() {
 }
 
 getMealData();
+
+const favoritesBtn = document.querySelector("#favPage");
+
+favoritesBtn.addEventListener("click", function () {
+  window.location.href = "favorites.html";
+});
+
+const homeBtn = document.querySelector("#homePage");
+
+homeBtn.addEventListener("click", function () {
+  window.location.href = "index.html";
+});
