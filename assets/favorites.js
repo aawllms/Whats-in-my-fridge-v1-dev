@@ -35,15 +35,10 @@ function createFavCard() {
     cardP.setAttribute("class", "card-text");
     cardP.textContent = apiData[i].strInstructions;
 
-    const cardBtn = document.createElement("a");
-    cardBtn.setAttribute("class", "btn btn-primary");
-    cardBtn.setAttribute("href", "#");
-    cardBtn.textContent = "Add to Favorites";
-
     // Assemble the card
     divCardBody.appendChild(cardTitle);
     divCardBody.appendChild(cardP);
-    divCardBody.appendChild(cardBtn);
+
     divCardEl.appendChild(imgEl);
     divCardEl.appendChild(divCardBody);
     divColEl.appendChild(divCardEl);
