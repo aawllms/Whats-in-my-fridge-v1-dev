@@ -1,7 +1,7 @@
-
-
 // Create a container to append all cards
-const container = document.getElementById("data-cards"); // Make sure you have a container in your HTML
+const container = document.getElementById("data-cards");
+
+const favoritesBtn = document.querySelector("#Favorite-button");
 
 function getMealData() {
   fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=")
@@ -13,7 +13,6 @@ function getMealData() {
       const apiData = data.meals;
       console.log(apiData);
 
-      
       for (let i = 0; i < apiData.length; i++) {
         // Create the card structure
         const divColEl = document.createElement("div");
@@ -58,3 +57,8 @@ function getMealData() {
 }
 
 getMealData();
+
+favoritesBtn.addEventListener("click", function () {
+  const mealFavorites = getMealData.value;
+  console.log();
+});
