@@ -58,15 +58,16 @@ function getMealData() {
 
 getMealData();
 
-const favoritesBtn = document.querySelector("#favPage");
+//Mike and Wills working on
+const favoritesPageBtn = document.querySelector("#favPage");
 
-favoritesBtn.addEventListener("click", function () {
+favoritesPageBtn.addEventListener("click", function () {
   window.location.href = "favorites.html";
 });
 
-const homeBtn = document.querySelector("#homePage");
+const homePageBtn = document.querySelector("#homePage");
 
-homeBtn.addEventListener("click", function () {
+homePageBtn.addEventListener("click", function () {
   window.location.href = "index.html";
 });
 
