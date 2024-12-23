@@ -11,7 +11,7 @@ const homePageBtn = document.querySelector("#homePage");
 
 function createFavCard() {
   //update placeholder to be name from script.js naming of saving items
-  for (let i = 0; i < PLACEHOLDER.length; i++) {
+  for (let i = 0; i < favArr.length; i++) {
     // Create the card structure
     const divColEl = document.createElement("div");
     divColEl.setAttribute("class", "col");
@@ -59,7 +59,7 @@ function noFavorites() {
 
 //create function that renders the favorite items from local storage ***ADD FAVORITE NAME FOR PLACEHOLDER
 function renderFavorite() {
-  const favData = JSON.parse(localStorage.getItem("Placeholder")) || [];
+  const favData = JSON.parse(localStorage.getItem("favorites")) || [];
   if (favData.length > 0) {
     for (let i = 0; i < favData.length; i++) {
       createFavCard(favData[i]);
@@ -71,10 +71,3 @@ function renderFavorite() {
 //call function for rendering favorite items
 renderFavorite();
 
-favoritesPageBtn.addEventListener("click", function () {
-  window.location.href = "favorites.html";
-});
-
-homePageBtn.addEventListener("click", function () {
-  window.location.href = "index.html";
-});

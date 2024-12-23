@@ -62,20 +62,6 @@ function getMealData() {
 
 getMealData();
 
-//redirects the page to the favorites page when clicked in the nav bar
-const favoritesPageBtn = document.querySelector("#favPage");
-
-favoritesPageBtn.addEventListener("click", function () {
-  window.location.href = "favorites.html";
-});
-
-//redirects the page to the home page when clicked in the nav bar
-const homePageBtn = document.querySelector("#homePage");
-
-homePageBtn.addEventListener("click", function () {
-  window.location.href = "index.html";
-});
-
 container.addEventListener("click", function (event) {
   const element = event.target;
   // console.log(element);
