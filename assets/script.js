@@ -62,13 +62,14 @@ function getMealData() {
 
 getMealData();
 
-//Mike and Wills working on
+//redirects the page to the favorites page when clicked in the nav bar
 const favoritesPageBtn = document.querySelector("#favPage");
 
 favoritesPageBtn.addEventListener("click", function () {
   window.location.href = "favorites.html";
 });
 
+//redirects the page to the home page when clicked in the nav bar
 const homePageBtn = document.querySelector("#homePage");
 
 homePageBtn.addEventListener("click", function () {
@@ -89,15 +90,14 @@ container.addEventListener("click", function (event) {
   const favObj = apiData.find((meal) => meal.idMeal === id);
   // console.log(favObj);
 
-  const favArr = [];
-  favArr.push(favObj);
-
-  localStorage.setItem(`favorites`, JSON.stringify(favArr));
-  //console.log();
   //Create a variable = empty array
   //Push object into array
+  const favArr = JSON.parse(localStorage.getItem("favorites")) || [];
   //Push array into local storage
+  favArr.push(favObj);
   //json.stringify array
+  localStorage.setItem(`favorites`, JSON.stringify(favArr));
+  //console.log();
 
   // windows.localstorage.setItem(Json.stringify)
 });
