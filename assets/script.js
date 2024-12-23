@@ -83,7 +83,7 @@ container.addEventListener("click", function (event) {
   favArr.push(favObj);
   //json.stringify array
   localStorage.setItem(`favorites`, JSON.stringify(favArr));
-  //console.log();
+  console.log(favArr);
 
   // windows.localstorage.setItem(Json.stringify)
 });
