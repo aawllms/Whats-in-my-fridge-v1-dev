@@ -70,11 +70,3 @@ function renderFavorite() {
 }
 //call function for rendering favorite items
 renderFavorite();
-
-// favoritesPageBtn.addEventListener("click", function () {
-//   window.location.href = "favorites.html";
-// });
-
-// homePageBtn.addEventListener("click", function () {
-//   window.location.href = "index.html";
-// });
