@@ -83,19 +83,19 @@ container.addEventListener("click", function (event) {
   favArr.push(favObj);
   //json.stringify array
   localStorage.setItem(`favorites`, JSON.stringify(favArr));
-  //console.log();
+  console.log(favArr);
 
   // windows.localstorage.setItem(Json.stringify)
 });
 
 function searchMeal() {
-  const searchTerm = document.getElementById("searchInput").value.trim();
+  const searchTerm = document.querySelector(".searchInput").value.trim();
 
   if (!searchTerm) {
     alert("Please enter a search term");
     return;
   }
-
+  console.log(searchTerm);
   fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`)
     .then((response) => {
       if (!response.ok) {
@@ -170,4 +170,5 @@ const formEl = document.getElementById("custom-form");
 
 formEl.addEventListener("submit", function (event) {
   event.preventDefault();
+  searchMeal();
 });
