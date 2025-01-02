@@ -1,4 +1,3 @@
-
 // Create a container to append all cards
 const container = document.getElementById("data-cards");
 
@@ -10,6 +9,7 @@ const homePageBtn = document.querySelector("#homePage");
 
 // Function that builds the elements and appends to DOM
 function createFavCard(favItem) {
+  console.log(favItem);
   // Create the card structure
   const divColEl = document.createElement("div");
   divColEl.setAttribute("class", "col");
@@ -57,6 +57,7 @@ function noFavorites() {
 // Function that renders the favorite items from local storage
 function renderFavorite() {
   const favData = JSON.parse(localStorage.getItem("favorites")) || [];
+  // console.log(favData);
   if (favData.length > 0) {
     for (let i = 0; i < favData.length; i++) {
       createFavCard(favData[i]); // Pass favData[i] into createFavCard()
