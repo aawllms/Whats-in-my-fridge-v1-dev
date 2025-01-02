@@ -1,6 +1,13 @@
 // Create a container to append all cards
 const container = document.getElementById("data-cards"); // Make sure you have a container in your HTML
 
+const modalBody = document.querySelector(".modal-body");
+// console.log(modalBody);
+
+const btnClose = document.getElementById("custom-closeButton");
+
+const modalTitle = document.getElementById("exampleModalLabel");
+
 let mealData = [];
 
 function getMealData() {
@@ -88,87 +95,77 @@ container.addEventListener("click", function (event) {
   // windows.localstorage.setItem(Json.stringify)
 });
 
-function searchMeal() {
-  const searchTerm = document.querySelector(".searchInput").value.trim();
+//async/await - ES6(JS 2015)
 
-  if (!searchTerm) {
-    alert("Please enter a search term");
-    return;
+async function searchMeal() {
+  try {
+    const searchTerm = document.querySelector(".searchInput").value.trim();
+
+    if (!searchTerm) {
+      alert("Please enter a search term");
+      return;
+    }
+    // console.log(searchTerm);
+
+    const response = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Something went amiss with data call");
+    }
+
+    const data = await response.json();
+    // console.log(data);
+
+    // console.log(data.meals[0].strMeal);
+
+    const divColEl = document.createElement("div");
+    divColEl.setAttribute("class", "col");
+    console.log(divColEl);
+    const divCardEl = document.createElement("div");
+    divCardEl.setAttribute("class", "card shadow-sm");
+
+    const imgEl = document.createElement("img");
+    imgEl.setAttribute("class", "bd-placeholder-img card-img-top");
+    imgEl.setAttribute("alt", "Card image");
+    imgEl.setAttribute("src", data.meals[0].strMealThumb);
+
+    const divCardBody = document.createElement("div");
+    divCardBody.setAttribute("class", "card-body");
+
+    const cardTitle = document.createElement("h5");
+    cardTitle.setAttribute("class", "card-title");
+    cardTitle.textContent = data.meals[0].strMeal; // Set the title to the current item in newArray
+
+    const cardP = document.createElement("p");
+    cardP.setAttribute("class", "card-text");
+    cardP.textContent = data.meals[0].strInstructions;
+
+    // Assemble the card
+    divCardBody.appendChild(cardTitle);
+    divCardBody.appendChild(cardP);
+
+    divCardEl.appendChild(imgEl);
+    divCardEl.appendChild(divCardBody);
+    divColEl.appendChild(divCardEl);
+
+    // Append the card column to the container
+    modalBody.appendChild(divColEl);
+  } catch (err) {
+    console.log(err);
   }
-  console.log(searchTerm);
-  fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      const apiData = data.meals;
-      console.log(apiData);
-
-      const container = document.getElementById("data-cards");
-      container.innerHTML = "";
-
-      if (!apiData) {
-        container.innerHTML =
-          "<p>No meals found. Please try a different search term.</p>";
-        return;
-      }
-
-      apiData.forEach((meal) => {
-        const divColEl = document.createElement("div");
-        divColEl.setAttribute("class", "col");
-
-        const divCardEl = document.createElement("div");
-        divCardEl.setAttribute("class", "card shadow-sm");
-
-        const imgEl = document.createElement("img");
-        imgEl.setAttribute("class", "bd-placeholder-img card-img-top");
-        imgEl.setAttribute("alt", "Card image");
-        imgEl.setAttribute("src", meal.strMealThumb);
-
-        const divCardBody = document.createElement("div");
-        divCardBody.setAttribute("class", "card-body");
-
-        const cardTitle = document.createElement("h5");
-        cardTitle.setAttribute("class", "card-title");
-        cardTitle.textContent = meal.strMeal;
-
-        const cardP = document.createElement("p");
-        cardP.setAttribute("class", "card-text");
-        cardP.textContent = meal.strInstructions.slice(0, 100) + "...";
-
-        const cardBtn = document.createElement("button");
-        cardBtn.setAttribute("class", "btn btn-primary");
-        cardBtn.setAttribute("id", "favorite-button");
-        cardBtn.setAttribute("data-index", meal.idMeal);
-        cardBtn.textContent = "Add to Favorites";
-
-        divCardBody.appendChild(cardTitle);
-        divCardBody.appendChild(cardP);
-        divCardBody.appendChild(cardBtn);
-        divCardEl.appendChild(imgEl);
-        divCardEl.appendChild(divCardBody);
-        divColEl.appendChild(divCardEl);
-
-        container.appendChild(divColEl);
-      });
-    })
-    .catch((error) => {
-      console.error("Error fetching meal data:", error);
-    });
 }
-
-// const searchBtn = document.getElementById("searchBtn");
-// searchBtn.addEventListener("submit", (event) => {
-//   event.preventDefault();
-//   searchMeal();
-// });
 
 const formEl = document.getElementById("custom-form");
 
 formEl.addEventListener("submit", function (event) {
   event.preventDefault();
   searchMeal();
+});
+
+//added event listener to clear modal body when modal is closed
+btnClose.addEventListener("click", function () {
+  console.log("ive been clicked");
+  modalBody.textContent = "";
 });
